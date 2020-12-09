@@ -47,7 +47,6 @@ class Board extends Component {
 
   createBoard() {
     let board = [];
-    // TODO: create array-of-arrays of true/false values
     for (let i = 0; i < this.props.nrows; i++) {
       let subArray = [];
       for (let j = 0; j < this.props.ncols; j++) {
@@ -55,7 +54,6 @@ class Board extends Component {
       }
       board.push(subArray);
     }
-    console.log(board);
     return board;
   }
 
@@ -87,9 +85,24 @@ class Board extends Component {
   render() {
     // if the game is won, just show a winning msg & render nothing else
     // TODO
-    // make table board
-    // TODO
-    return <div></div>;
+
+    return (
+      <div>
+        <table className="Board">
+          <tbody>
+            {this.state.board.map(r => {
+              return (
+                <tr>
+                  {r.map(c => (
+                    <Cell isLit={c} flipCellsAroundMe={this.flipCellsAround} />
+                  ))}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    );
   }
 }
 
