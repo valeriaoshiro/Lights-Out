@@ -82,7 +82,9 @@ class Board extends Component {
 
     // win when every cell is turned off
     // TODO: determine is the game has been won
-    let hasWon = false;
+    let hasWon = !board.some(r => {
+      return r.some(c => c === true);
+    });
 
     this.setState({ board, hasWon });
   }
@@ -95,24 +97,28 @@ class Board extends Component {
 
     return (
       <div>
-        <table className="Board">
-          <tbody>
-            {this.state.board.map((r, rIndex) => {
-              return (
-                <tr key={rIndex}>
-                  {r.map((c, cIndex) => (
-                    <Cell
-                      isLit={c}
-                      flipCellsAroundMe={this.flipCellsAround}
-                      key={`${rIndex}-${cIndex}`}
-                      value={`${rIndex}-${cIndex}`}
-                    />
-                  ))}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        {this.state.hasWon ? (
+          "Won!"
+        ) : (
+          <table className="Board">
+            <tbody>
+              {this.state.board.map((r, rIndex) => {
+                return (
+                  <tr key={rIndex}>
+                    {r.map((c, cIndex) => (
+                      <Cell
+                        isLit={c}
+                        flipCellsAroundMe={this.flipCellsAround}
+                        key={`${rIndex}-${cIndex}`}
+                        value={`${rIndex}-${cIndex}`}
+                      />
+                    ))}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     );
   }
