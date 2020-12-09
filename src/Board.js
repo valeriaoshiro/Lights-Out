@@ -39,7 +39,7 @@ class Board extends Component {
 
     this.state = {
       hasWon: false,
-      board: []
+      board: this.createBoard()
     };
   }
 
@@ -48,6 +48,14 @@ class Board extends Component {
   createBoard() {
     let board = [];
     // TODO: create array-of-arrays of true/false values
+    for (let i = 0; i < this.props.nrows; i++) {
+      let subArray = [];
+      for (let j = 0; j < this.props.ncols; j++) {
+        subArray.push(false);
+      }
+      board.push(subArray);
+    }
+    console.log(board);
     return board;
   }
 
