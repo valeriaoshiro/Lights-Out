@@ -37,7 +37,10 @@ class Board extends Component {
   constructor(props) {
     super(props);
 
-    // TODO: set initial state
+    this.state = {
+      hasWon: false,
+      board: []
+    };
   }
 
   /** create a board nrows high/ncols wide, each cell randomly lit or unlit */
@@ -68,7 +71,7 @@ class Board extends Component {
     // win when every cell is turned off
     // TODO: determine is the game has been won
 
-    this.setState({ board, hasWon });
+    // this.setState({ board, hasWon });
   }
 
   /** Render game board or winning message. */
@@ -78,6 +81,7 @@ class Board extends Component {
     // TODO
     // make table board
     // TODO
+    return <div></div>;
   }
 }
 
