@@ -68,7 +68,6 @@ class Board extends Component {
 
     function flipCell(y, x) {
       // if this coord is actually on board, flip it
-
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
         board[y][x] = !board[y][x];
       }
@@ -81,7 +80,6 @@ class Board extends Component {
     flipCell(y, x - 1);
 
     // win when every cell is turned off
-    // TODO: determine is the game has been won
     let hasWon = !board.some(r => {
       return r.some(c => c === true);
     });
@@ -92,33 +90,30 @@ class Board extends Component {
   /** Render game board or winning message. */
 
   render() {
-    // if the game is won, just show a winning msg & render nothing else
-    // TODO
-
+    let tableBoard = (
+      <table className="Board">
+        <tbody>
+          {this.state.board.map((r, rIndex) => {
+            return (
+              <tr key={rIndex}>
+                {r.map((c, cIndex) => (
+                  <Cell
+                    isLit={c}
+                    flipCellsAroundMe={this.flipCellsAround}
+                    key={`${rIndex}-${cIndex}`}
+                    value={`${rIndex}-${cIndex}`}
+                  />
+                ))}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    );
     return (
       <div>
-        {this.state.hasWon ? (
-          "Won!"
-        ) : (
-          <table className="Board">
-            <tbody>
-              {this.state.board.map((r, rIndex) => {
-                return (
-                  <tr key={rIndex}>
-                    {r.map((c, cIndex) => (
-                      <Cell
-                        isLit={c}
-                        flipCellsAroundMe={this.flipCellsAround}
-                        key={`${rIndex}-${cIndex}`}
-                        value={`${rIndex}-${cIndex}`}
-                      />
-                    ))}
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        )}
+        <h1>LightsOut</h1>
+        {this.state.hasWon ? "Won!" : tableBoard}
       </div>
     );
   }
