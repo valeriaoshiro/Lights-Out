@@ -64,20 +64,20 @@ class Board extends Component {
   flipCellsAround(coord) {
     let { ncols, nrows } = this.props;
     let board = this.state.board;
-    let [y, x] = coord.split("-").map(Number);
+    let [x, y] = coord.split("-").map(Number);
 
-    function flipCell(y, x) {
+    function flipCell(x, y) {
       // if this coord is actually on board, flip it
       if (x >= 0 && x < ncols && y >= 0 && y < nrows) {
-        board[y][x] = !board[y][x];
+        board[x][y] = !board[x][y];
       }
     }
 
-    flipCell(y, x);
-    flipCell(y + 1, x);
-    flipCell(y - 1, x);
-    flipCell(y, x + 1);
-    flipCell(y, x - 1);
+    flipCell(x, y);
+    flipCell(x + 1, y);
+    flipCell(x - 1, y);
+    flipCell(x, y + 1);
+    flipCell(x, y - 1);
 
     // win when every cell is turned off
     let hasWon = !board.some(r => {
@@ -93,15 +93,15 @@ class Board extends Component {
     let tableBoard = (
       <table className="Board">
         <tbody>
-          {this.state.board.map((r, rIndex) => {
+          {this.state.board.map((x, xIndex) => {
             return (
-              <tr key={rIndex}>
-                {r.map((c, cIndex) => (
+              <tr key={xIndex}>
+                {x.map((y, yIndex) => (
                   <Cell
-                    isLit={c}
+                    isLit={y}
                     flipCellsAroundMe={this.flipCellsAround}
-                    key={`${rIndex}-${cIndex}`}
-                    value={`${rIndex}-${cIndex}`}
+                    key={`${xIndex}-${yIndex}`}
+                    value={`${xIndex}-${yIndex}`}
                   />
                 ))}
               </tr>
